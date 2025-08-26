@@ -45,9 +45,18 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+      
+      - name: Free Port 8080
+        run: |
+          if lsof -i:8080 -t >/dev/null; then
+            echo "Port 8080 in use, killing process..."
+            kill -9 $(lsof -i:8080 -t)
+          else
+            echo "Port 8080 is free."
+          fi
 
       - name: Restart Docker Container
         run: |
           docker stop ngrx-counter || true
           docker rm ngrx-counter || true
-          docker run -d -p 8081:80 --name ngrx-counter ngrx-counter-demo
+          docker run -d -p 8080:80 --name ngrx-counter ngrx-counter-demo

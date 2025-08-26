@@ -50,4 +50,4 @@ jobs:
         run: |
           docker stop ngrx-counter || true
           docker rm ngrx-counter || true
-          docker run -d -p 8080:80 --name ngrx-counter ngrx-counter-demo
+          docker run -d -p 8081:80 --name ngrx-counter ngrx-counter-demo
